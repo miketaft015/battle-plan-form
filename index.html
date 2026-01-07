@@ -741,7 +741,7 @@
 
     <script>
         // GHL Webhook URL
-        const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/FzfCzB622ADG0AlZg87x/webhook-trigger/a163a125-131b-4e4e-a9c1-a7ab9fb60fef';
+        const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/FzfCzB622ADG0AlZg87x/webhook-trigger/QLAy0yohMYSX6CjTWCxr';
         
         // DOM Elements
         const form = document.getElementById('battlePlanForm');
@@ -791,14 +791,14 @@
             };
             
             try {
-                // Send to GHL webhook
-                await fetch(GHL_WEBHOOK, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'no-cors',
-                    body: JSON.stringify(formData)
+                // Build URL with query parameters
+                const params = new URLSearchParams(formData).toString();
+                const webhookUrl = GHL_WEBHOOK + '?' + params;
+                
+                // Send as GET request with parameters
+                await fetch(webhookUrl, {
+                    method: 'GET',
+                    mode: 'no-cors'
                 });
                 
                 // Show success screen
